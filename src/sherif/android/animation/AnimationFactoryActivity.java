@@ -14,20 +14,20 @@ import android.view.animation.Animation.AnimationListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class AnimationFactoryActivity extends Activity {
+public class AnimationFactoryActivity extends Activity implements AnimationFactory.SherifAnimationListener {
 	static final int DIALOG_SELECT_INANIMATION = 11;
 	static final int DIALOG_SELECT_OUTANIMATION = 22;
 	String[] inAnimations = { "inFromLeft", "inFromRight", "inFromTop",
 			"inFromBottom", "inFade" };
 	String[] outAnimations = { "outToLeft", "outToRight", "outToTop",
-			"outToBottom", "outFade" };
+			"outToBottom", "outFade", "outHorizontal" };
 
 	TextView sample;
 	TextView selected;
 
 	boolean dismiss = true;
 	boolean showing = false;
-	Animation animation = AnimationFactory.outToRight();
+	Animation animation = null;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -43,6 +43,7 @@ public class AnimationFactoryActivity extends Activity {
 			public void onClick(View arg0) {
 				if (!showing) {
 					Log.v("", (dismiss ? "dismiss" : "bringIn"));
+					dismiss = sample.getVisibility() == View.VISIBLE;
 					if (dismiss)
 						showDialog(DIALOG_SELECT_OUTANIMATION);
 					else
@@ -54,7 +55,6 @@ public class AnimationFactoryActivity extends Activity {
 
 	protected void toggle() {
 		animation.setDuration(1000);
-		dismiss = sample.getVisibility() == View.VISIBLE;
 		animation.setAnimationListener(new AnimationListener() {
 
 			@Override
@@ -119,6 +119,10 @@ public class AnimationFactoryActivity extends Activity {
 									case 4:
 										animation = AnimationFactory.outFade();
 										break;
+									case 5:
+										animation = null;
+										AnimationFactory.outHorizontal(sample, AnimationFactoryActivity.this);
+										break;
 									}
 									;
 									selected.setText(outAnimations[which]);
@@ -169,14 +173,21 @@ public class AnimationFactoryActivity extends Activity {
 							}).create();
 			break;
 		}
-
 		dialog.setOnDismissListener(new OnDismissListener() {
 
 			@Override
 			public void onDismiss(DialogInterface arg0) {
-				toggle();
+				if(animation!=null)
+					toggle();
 			}
 		});
 		return dialog;
+	}
+
+	@Override
+	public void onAnimationEnd(Animation animation) {
+		// TODO Auto-generated method stub
+		showing = false;
+		sample.setVisibility(View.INVISIBLE);
 	}
 }
