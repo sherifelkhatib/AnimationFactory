@@ -1,5 +1,6 @@
 package sherif.android.animation;
 
+import sherif.android.textview.VibratingTextView;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -23,7 +24,7 @@ public class AnimationFactoryActivity extends Activity implements AnimationFacto
 			"outToBottom", "outFade", "outHorizontal" };
 
 	TextView sample;
-	TextView selected;
+	VibratingTextView selected;
 
 	boolean dismiss = true;
 	boolean showing = false;
@@ -35,7 +36,7 @@ public class AnimationFactoryActivity extends Activity implements AnimationFacto
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		sample = (TextView) findViewById(R.id.textView1);
-		selected = (TextView) findViewById(R.id.textView2);
+		selected = (VibratingTextView) findViewById(R.id.textView2);
 		Button select = (Button) findViewById(R.id.button3);
 		select.setOnClickListener(new OnClickListener() {
 

@@ -8,11 +8,15 @@
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:layout_height="wrap_content" android:layout_margin="50dip"></TextView>
 	<LinearLayout android:id="@+id/linearLayout2"
-		android:layout_height="wrap_content" android:layout_width="match_parent">
+		android:layout_height="wrap_content" android:layout_width="fill_parent">
 		<Button android:layout_width="wrap_content" android:id="@+id/button3"
 			android:text="selectAnimation" android:layout_height="wrap_content"></Button>
-		<TextView android:id="@+id/textView2" android:layout_width="wrap_content"
+		<sherif.android.textview.VibratingTextView
+			android:id="@+id/textView2"
+			android:layout_width="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceLarge"
-			android:layout_height="wrap_content" android:text="outToRight" />
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:text="outToRight" />
 	</LinearLayout>
 </LinearLayout>
